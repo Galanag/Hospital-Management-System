@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Module category for ICU -->
+        <record id="module_category_icu" model="ir.module.category">
+            <field name="name">ICU Management</field>
+            <field name="description">Intensive Care Unit</field>
+            <field name="sequence">15</field>
+        </record>
+
+        <!-- ICU Nurse (basic access) -->
+        <record id="group_icu_nurse" model="res.groups">
+            <field name="name">ICU Nurse</field>
+            <field name="category_id" ref="module_category_icu"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- ICU Doctor (extends Nurse) -->
+        <record id="group_icu_doctor" model="res.groups">
+            <field name="name">ICU Doctor</field>
+            <field name="category_id" ref="module_category_icu"/>
+            <field name="implied_ids" eval="[(4, ref('group_icu_nurse'))]"/>
+        </record>
+
+        <!-- ICU Manager (extends Doctor) -->
+        <record id="group_icu_manager" model="res.groups">
+            <field name="name">ICU Manager</field>
+            <field name="category_id" ref="module_category_icu"/>
+            <field name="implied_ids" eval="[(4, ref('group_icu_doctor'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+    </data>
+</odoo>

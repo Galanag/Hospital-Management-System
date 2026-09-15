@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Ventilator List -->
+    <record id="view_icu_ventilator_tree" model="ir.ui.view">
+        <field name="name">hm.icu.ventilator.tree</field>
+        <field name="model">hm.icu.ventilator</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="model"/>
+                <field name="assignment_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Ventilator Assignment Tree -->
+    <record id="view_icu_ventilator_assignment_tree" model="ir.ui.view">
+        <field name="name">hm.icu.ventilator.assignment.tree</field>
+        <field name="model">hm.icu.ventilator.assignment</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="patient_id"/>
+                <field name="ventilator_id"/>
+                <field name="start_date"/>
+                <field name="mode"/>
+                <field name="fio2"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Ventilator Assignment Form -->
+    <record id="view_icu_ventilator_assignment_form" model="ir.ui.view">
+        <field name="name">hm.icu.ventilator.assignment.form</field>
+        <field name="model">hm.icu.ventilator.assignment</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="patient_id" required="1"/>
+                            <field name="admission_id"/>
+                            <field name="ventilator_id" required="1"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                        <group>
+                            <field name="mode" required="1"/>
+                            <field name="peep"/>
+                            <field name="fio2"/>
+                            <field name="rate"/>
+                            <field name="tidal_volume"/>
+                            <field name="pressure_support"/>
+                        </group>
+                        <field name="notes" widget="html"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View for Ventilator Assignments (used by dashboard) -->
+    <record id="view_icu_ventilator_assignment_search" model="ir.ui.view">
+        <field name="name">hm.icu.ventilator.assignment.search</field>
+        <field name="model">hm.icu.ventilator.assignment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="patient_id"/>
+                <field name="ventilator_id"/>
+                <filter name="active" string="Active" domain="[('end_date','=',False)]"/>
+                <filter name="inactive" string="Inactive" domain="[('end_date','!=',False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action for Ventilators -->
+    <record id="action_icu_ventilator" model="ir.actions.act_window">
+        <field name="name">Ventilators</field>
+        <field name="res_model">hm.icu.ventilator</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- **NEW** Action for Ventilator Assignments (used by dashboard) -->
+    <record id="action_icu_ventilator_assignment" model="ir.actions.act_window">
+        <field name="name">Ventilator Assignments</field>
+        <field name="res_model">hm.icu.ventilator.assignment</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_icu_ventilator_assignment_search"/>
+    </record>
+</odoo>

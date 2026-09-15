@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_icu_clinical_note_tree" model="ir.ui.view">
+        <field name="name">hm.icu.clinical.note.tree</field>
+        <field name="model">hm.icu.clinical.note</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="date_time"/>
+                <field name="patient_id"/>
+                <field name="note_type" widget="badge"/>
+                <field name="doctor_id"/>
+                <field name="content" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_icu_clinical_note_form" model="ir.ui.view">
+        <field name="name">hm.icu.clinical.note.form</field>
+        <field name="model">hm.icu.clinical.note</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="patient_id" required="1"/>
+                            <field name="admission_id"/>
+                            <field name="date_time"/>
+                            <field name="note_type" required="1"/>
+                            <field name="doctor_id"/>
+                        </group>
+                    </group>
+                    <field name="content" required="1" widget="html"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_icu_clinical_note" model="ir.actions.act_window">
+        <field name="name">Clinical Notes</field>
+        <field name="res_model">hm.icu.clinical.note</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

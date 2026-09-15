@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_icu_monitoring_tree" model="ir.ui.view">
+        <field name="name">hm.icu.monitoring.tree</field>
+        <field name="model">hm.icu.monitoring</field>
+        <field name="arch" type="xml">
+            <list default_order="timestamp desc">
+                <field name="timestamp"/>
+                <field name="patient_id"/>
+                <field name="pulse"/>
+                <field name="blood_pressure_systolic"/>
+                <field name="oxygen_saturation"/>
+                <field name="gcs"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_icu_monitoring_form" model="ir.ui.view">
+        <field name="name">hm.icu.monitoring.form</field>
+        <field name="model">hm.icu.monitoring</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="patient_id" required="1"/>
+                            <field name="admission_id"/>
+                            <field name="timestamp" required="1"/>
+                        </group>
+                        <group>
+                            <field name="temperature"/>
+                            <field name="blood_pressure_systolic"/>
+                            <field name="blood_pressure_diastolic"/>
+                            <field name="pulse"/>
+                            <field name="respiratory_rate"/>
+                            <field name="oxygen_saturation"/>
+                            <field name="gcs"/>
+                            <field name="pain_score"/>
+                        </group>
+                        <group>
+                            <field name="fluid_intake"/>
+                            <field name="fluid_output"/>
+                            <field name="urine_output"/>
+                            <field name="weight"/>
+                            <field name="ecg_summary" widget="html"/>
+                            <field name="notes" widget="html"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_icu_monitoring" model="ir.actions.act_window">
+        <field name="name">ICU Monitoring</field>
+        <field name="res_model">hm.icu.monitoring</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

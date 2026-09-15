@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============================================================
+         ICU OCCUPANCY REPORT (Pivot + Graph)
+         ============================================================ -->
+    <record id="view_icu_occupancy_pivot" model="ir.ui.view">
+        <field name="name">hm.icu.occupancy.pivot</field>
+        <field name="model">hm.icu.admission</field>
+        <field name="arch" type="xml">
+            <pivot string="ICU Occupancy Analysis" sample="1">
+                <field name="severity" type="row"/>
+                <field name="state" type="col"/>
+                <field name="admission_date" interval="month" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_icu_occupancy_graph" model="ir.ui.view">
+        <field name="name">hm.icu.occupancy.graph</field>
+        <field name="model">hm.icu.admission</field>
+        <field name="arch" type="xml">
+            <graph string="ICU Occupancy Trends" type="bar" sample="1">
+                <field name="admission_date" interval="week"/>
+                <field name="state" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- ============================================================
+         ICU DISCHARGE REPORT (Pivot + Graph)
+         ============================================================ -->
+    <record id="view_icu_discharge_pivot" model="ir.ui.view">
+        <field name="name">hm.icu.discharge.pivot</field>
+        <field name="model">hm.icu.discharge</field>
+        <field name="arch" type="xml">
+            <pivot string="ICU Discharge Analysis" sample="1">
+                <field name="discharge_type" type="row"/>
+                <field name="discharge_date" interval="month" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_icu_discharge_graph" model="ir.ui.view">
+        <field name="name">hm.icu.discharge.graph</field>
+        <field name="model">hm.icu.discharge</field>
+        <field name="arch" type="xml">
+            <graph string="ICU Discharge Trends" type="bar" sample="1">
+                <field name="discharge_date" interval="week"/>
+                <field name="discharge_type" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- ============================================================
+         REPORTS MENU ACTION (Main Reports entry)
+         ============================================================ -->
+    <record id="action_icu_reports" model="ir.actions.act_window">
+        <field name="name">ICU Reports</field>
+        <field name="res_model">hm.icu.admission</field>
+        <field name="view_mode">pivot,graph,list</field>
+        <field name="view_ids" eval="[
+            (5, 0, 0),
+            (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_icu_occupancy_pivot')}),
+            (0, 0, {'view_mode': 'graph', 'view_id': ref('view_icu_occupancy_graph')})
+        ]"/>
+        <field name="help" type="html">
+            <p>Analyse ICU occupancy and discharges. Use the Print button to generate PDF reports.</p>
+        </field>
+    </record>
+</odoo>

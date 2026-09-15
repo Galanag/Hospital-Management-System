@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_icu_discharge_tree" model="ir.ui.view">
+        <field name="name">hm.icu.discharge.tree</field>
+        <field name="model">hm.icu.discharge</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="admission_id"/>
+                <field name="patient_id"/>
+                <field name="discharge_date"/>
+                <field name="discharge_type" widget="badge"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_icu_discharge_form" model="ir.ui.view">
+        <field name="name">hm.icu.discharge.form</field>
+        <field name="model">hm.icu.discharge</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="admission_id" required="1"/>
+                            <field name="patient_id" readonly="1"/>
+                            <field name="discharge_date"/>
+                            <field name="discharge_type" required="1"/>
+                        </group>
+                        <group>
+                            <field name="final_diagnosis" required="1" widget="html"/>
+                            <field name="discharge_summary" widget="html"/>
+                            <field name="follow_up_recommendations" widget="html"/>
+                            <field name="notes" widget="html"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View – corrected -->
+    <record id="view_icu_discharge_search" model="ir.ui.view">
+        <field name="name">hm.icu.discharge.search</field>
+        <field name="model">hm.icu.discharge</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="patient_id"/>
+                <field name="admission_id"/>
+                <!-- Use date attribute for today's filter -->
+                <filter name="discharges_today" string="Today" date="discharge_date"/>
+                <filter name="transfer" string="Transfer" domain="[('discharge_type','=','transfer_ward')]"/>
+                <filter name="death" string="Death" domain="[('discharge_type','=','death')]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter name="group_type" string="Type" context="{'group_by':'discharge_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_icu_discharge" model="ir.actions.act_window">
+        <field name="name">ICU Discharge</field>
+        <field name="res_model">hm.icu.discharge</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_icu_discharge_search"/>
+    </record>
+</odoo>

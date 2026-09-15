@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_icu_nursing_note_tree" model="ir.ui.view">
+        <field name="name">hm.icu.nursing.note.tree</field>
+        <field name="model">hm.icu.nursing.note</field>
+        <field name="arch" type="xml">
+            <list default_order="note_date desc">
+                <field name="note_date"/>
+                <field name="patient_id"/>
+                <field name="shift"/>
+                <field name="nurse_id"/>
+                <field name="observations" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_icu_nursing_note_form" model="ir.ui.view">
+        <field name="name">hm.icu.nursing.note.form</field>
+        <field name="model">hm.icu.nursing.note</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="patient_id" required="1"/>
+                            <field name="admission_id"/>
+                            <field name="note_date" required="1"/>
+                            <field name="shift" required="1"/>
+                            <field name="nurse_id"/>
+                        </group>
+                        <group>
+                            <field name="observations" required="1" widget="html"/>
+                            <field name="medication_administered" widget="html"/>
+                            <field name="fluid_balance" widget="html"/>
+                            <field name="pain_assessment" widget="html"/>
+                            <field name="tasks_performed" widget="html"/>
+                            <field name="handover_notes" widget="html"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_icu_nursing_note" model="ir.actions.act_window">
+        <field name="name">Nursing Notes</field>
+        <field name="res_model">hm.icu.nursing.note</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

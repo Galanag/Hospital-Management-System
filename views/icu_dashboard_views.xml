@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Action for Detailed Charts -->
+    <record id="action_icu_occupancy_graph" model="ir.actions.act_window">
+        <field name="name">ICU Charts</field>
+        <field name="res_model">hm.icu.admission</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="help" type="html">
+            <p>Interactive graphs for ICU occupancy and trends.</p>
+        </field>
+    </record>
+
+
+    <record id="view_icu_dashboard_form" model="ir.ui.view">
+        <field name="name">hm.icu.dashboard.form</field>
+        <field name="model">hm.icu.dashboard</field>
+        <field name="arch" type="xml">
+            <form string="ICU Dashboard">
+                <header>
+                    <button name="%(action_icu_occupancy_graph)d"
+                            type="action"
+                            string="View Detailed Charts"
+                            class="btn-primary"
+                            icon="fa-chart-line"/>
+                </header>
+                <sheet>
+                    <!-- KPI Cards with Icons -->
+                    <div class="row mt-4">
+                        <!-- Total Patients -->
+                        <div class="col-3">
+                            <a type="action"
+                               name="%(action_icu_admission)d"
+                               context="{'search_default_admitted': 1}"
+                               class="card text-white bg-primary mb-3 text-decoration-none h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <h5 class="card-title">Total Patients</h5>
+                                        <i class="fa fa-users fa-2x" title="Total Patients Icon"></i>
+                                    </div>
+                                    <h2 class="card-text mt-2"><field name="total_patients"/></h2>
+                                    <p class="card-text"><small>Currently admitted</small></p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Admitted Today -->
+                        <div class="col-3">
+                            <a type="action"
+                               name="%(action_icu_admission)d"
+                               context="{'search_default_admissions_today': 1}"
+                               class="card text-white bg-success mb-3 text-decoration-none h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <h5 class="card-title">Admitted Today</h5>
+                                        <i class="fa fa-user-plus fa-2x" title="Admitted Today Icon"></i>
+                                    </div>
+                                    <h2 class="card-text mt-2"><field name="admitted_today"/></h2>
+                                    <p class="card-text"><small>New admissions</small></p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Discharged Today -->
+                        <div class="col-3">
+                            <a type="action"
+                               name="%(action_icu_discharge)d"
+                               context="{'search_default_discharges_today': 1}"
+                               class="card text-white bg-warning mb-3 text-decoration-none h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <h5 class="card-title">Discharged Today</h5>
+                                        <i class="fa fa-user-minus fa-2x" title="Discharged Today Icon"></i>
+                                    </div>
+                                    <h2 class="card-text mt-2"><field name="discharged_today"/></h2>
+                                    <p class="card-text"><small>Discharges</small></p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- Occupancy Rate -->
+                        <div class="col-3">
+                            <div class="card text-white bg-danger mb-3 h-100">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <h5 class="card-title">Occupancy Rate</h5>
+                                        <i class="fa fa-bed fa-2x" title="Occupancy Rate Icon"></i>
+                                    </div>
+                                    <h2 class="card-text mt-2"><field name="occupancy_rate"/>%</h2>
+                                    <p class="card-text"><small>Bed usage</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notebook for future extensions – remove Quick Stats -->
+                    <notebook>
+                        <page string="Overview">
+                            <group string="ICU Summary">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <p class="text-muted">This dashboard provides key performance indicators for your ICU.</p>
+                                        <p>Click on any KPI card to see the corresponding list view with filters applied.</p>
+                                        <p>Use the "View Detailed Charts" button above to open interactive graphs.</p>
+                                    </div>
+                                </div>
+                            </group>
+                        </page>
+                        <page string="Charts">
+                            <p class="text-center mt-4">
+                                <i class="fa fa-chart-pie fa-3x text-muted" title="Charts"></i>
+                                <br/>
+                                <strong>Click the "View Detailed Charts" button above</strong>
+                                <br/>
+                                to open full‑screen interactive graphs.
+                            </p>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for Dashboard -->
+    <record id="action_icu_dashboard" model="ir.actions.act_window">
+        <field name="name">ICU Dashboard</field>
+        <field name="res_model">hm.icu.dashboard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_icu_dashboard_form"/>
+        <field name="target">main</field>
+    </record>
+</odoo>

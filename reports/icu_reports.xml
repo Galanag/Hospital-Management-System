@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============================================================
+         ICU ADMISSIONS REPORT (PDF)
+         ============================================================ -->
+    <record id="action_report_icu_admissions" model="ir.actions.report">
+        <field name="name">ICU Admissions Report</field>
+        <field name="model">hm.icu.admission</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hm_icu.report_icu_admissions</field>
+        <field name="report_file">hm_icu.report_icu_admissions</field>
+        <field name="binding_model_id" ref="model_hm_icu_admission"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'ICU Admissions - %s' % (time.strftime('%Y-%m-%d'))</field>
+    </record>
+
+    <!-- Template for the report -->
+    <record id="report_icu_admissions_template" model="ir.ui.view">
+        <field name="name">hm.icu.admission.report.template</field>
+        <field name="model">ir.ui.view</field>
+        <field name="type">qweb</field>
+        <field name="arch" type="xml">
+            <template id="report_icu_admissions">
+                <t t-call="web.html_container">
+                    <t t-foreach="docs" t-as="doc">
+                        <t t-call="web.external_layout">
+                            <div class="page">
+                                <h2>ICU Admissions Report</h2>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Admission #</th>
+                                            <th>Patient</th>
+                                            <th>Admission Date</th>
+                                            <th>Bed</th>
+                                            <th>Consultant</th>
+                                            <th>Severity</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span t-field="doc.name"/></td>
+                                            <td><span t-field="doc.patient_id.display_name"/></td>
+                                            <td><span t-field="doc.admission_date"/></td>
+                                            <td><span t-field="doc.bed_id.name"/></td>
+                                            <td><span t-field="doc.consultant_id.name"/></td>
+                                            <td><span t-field="doc.severity"/></td>
+                                            <td><span t-field="doc.state"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p>
+                                    <strong>Admission Diagnosis:</strong>
+                                    <span t-field="doc.admission_diagnosis"/>
+                                </p>
+                                <p>
+                                    <strong>Notes:</strong>
+                                    <span t-field="doc.notes"/>
+                                </p>
+                            </div>
+                        </t>
+                    </t>
+                </t>
+            </template>
+        </field>
+    </record>
+
+    <!-- ============================================================
+         ICU DISCHARGES REPORT (PDF)
+         ============================================================ -->
+    <record id="action_report_icu_discharges" model="ir.actions.report">
+        <field name="name">ICU Discharge Report</field>
+        <field name="model">hm.icu.discharge</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">hm_icu.report_icu_discharges</field>
+        <field name="report_file">hm_icu.report_icu_discharges</field>
+        <field name="binding_model_id" ref="model_hm_icu_discharge"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'ICU Discharges - %s' % (time.strftime('%Y-%m-%d'))</field>
+    </record>
+
+    <record id="report_icu_discharges_template" model="ir.ui.view">
+        <field name="name">hm.icu.discharge.report.template</field>
+        <field name="model">ir.ui.view</field>
+        <field name="type">qweb</field>
+        <field name="arch" type="xml">
+            <template id="report_icu_discharges">
+                <t t-call="web.html_container">
+                    <t t-foreach="docs" t-as="doc">
+                        <t t-call="web.external_layout">
+                            <div class="page">
+                                <h2>ICU Discharge Report</h2>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Admission</th>
+                                            <th>Patient</th>
+                                            <th>Discharge Date</th>
+                                            <th>Discharge Type</th>
+                                            <th>Final Diagnosis</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><span t-field="doc.admission_id.name"/></td>
+                                            <td><span t-field="doc.patient_id.display_name"/></td>
+                                            <td><span t-field="doc.discharge_date"/></td>
+                                            <td><span t-field="doc.discharge_type"/></td>
+                                            <td><span t-field="doc.final_diagnosis"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p>
+                                    <strong>Discharge Summary:</strong>
+                                    <span t-field="doc.discharge_summary"/>
+                                </p>
+                                <p>
+                                    <strong>Follow-up:</strong>
+                                    <span t-field="doc.follow_up_recommendations"/>
+                                </p>
+                                <p>
+                                    <strong>Notes:</strong>
+                                    <span t-field="doc.notes"/>
+                                </p>
+                            </div>
+                        </t>
+                    </t>
+                </t>
+            </template>
+        </field>
+    </record>
+</odoo>

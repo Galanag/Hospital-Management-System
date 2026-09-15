@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root menu for ICU -->
+    <menuitem id="menu_icu_root"
+              name="ICU"
+              sequence="20"
+              web_icon="hm_icu,static/description/icon.png"
+              groups="group_icu_nurse,group_icu_doctor,group_icu_manager"/>
+
+    <!-- Dashboard -->
+    <menuitem id="menu_icu_dashboard"
+              name="Dashboard"
+              parent="menu_icu_root"
+              action="action_icu_dashboard"
+              sequence="0"/>
+
+    <!-- Admissions -->
+    <menuitem id="menu_icu_admission"
+              name="Admissions"
+              parent="menu_icu_root"
+              action="action_icu_admission"
+              sequence="10"/>
+
+    <!-- Beds -->
+    <menuitem id="menu_icu_bed"
+              name="Beds"
+              parent="menu_icu_root"
+              action="action_icu_bed"
+              sequence="20"/>
+
+    <!-- Monitoring -->
+    <menuitem id="menu_icu_monitoring"
+              name="Monitoring"
+              parent="menu_icu_root"
+              action="action_icu_monitoring"
+              sequence="30"/>
+
+    <!-- Ventilators -->
+    <menuitem id="menu_icu_ventilator"
+              name="Ventilators"
+              parent="menu_icu_root"
+              action="action_icu_ventilator"
+              sequence="40"/>
+
+    <!-- Nursing Notes -->
+    <menuitem id="menu_icu_nursing"
+              name="Nursing Notes"
+              parent="menu_icu_root"
+              action="action_icu_nursing_note"
+              sequence="50"/>
+
+    <!-- Procedures -->
+    <menuitem id="menu_icu_procedure"
+              name="Procedures"
+              parent="menu_icu_root"
+              action="action_icu_procedure"
+              sequence="60"/>
+
+    <!-- Clinical Notes -->
+    <menuitem id="menu_icu_clinical_note"
+              name="Clinical Notes"
+              parent="menu_icu_root"
+              action="action_icu_clinical_note"
+              sequence="70"/>
+
+    <!-- Discharge -->
+    <menuitem id="menu_icu_discharge"
+              name="Discharge"
+              parent="menu_icu_root"
+              action="action_icu_discharge"
+              sequence="80"/>
+
+    <!-- Reports -->
+    <menuitem id="menu_icu_reports"
+              name="Reports"
+              parent="menu_icu_root"
+              action="action_icu_reports"
+              sequence="90"/>
+</odoo>
